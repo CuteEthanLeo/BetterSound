@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "bettersound",
+  "version": "${version}",
+  "name": "BetterSound",
+  "description": "Realistic, crisp footsteps and block sounds from real recordings, plus dynamic ambience (forest birds, night insects, wind, caves, rain, water).",
+  "authors": ["CuteEthan"],
+  "license": ["MIT", "CC0-1.0"],
+  "icon": "assets/bettersound/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.bettersound.BetterSoundClient"]
+  },
+  "mixins": ["bettersound.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "${mc}",
+    "java": ">=${java}"
+  }
+}

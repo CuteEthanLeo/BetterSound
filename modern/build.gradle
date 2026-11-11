@@ -1,0 +1,16 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.19.3'
+    id 'java'
+}
+apply from: '../shared.gradle'
+
+dependencies {
+    minecraft "com.mojang:minecraft:${bsMc}"
+    implementation "net.fabricmc:fabric-loader:${loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${bsFabricApi}"
+}
+
+tasks.register('dist', Copy) {
+    from jar
+    into '../dist'
+}

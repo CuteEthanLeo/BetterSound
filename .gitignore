@@ -1,0 +1,15 @@
+# Gradle
+.gradle/
+build/
+# 构建产物（随 GitHub Release 发布）
+dist/
+# 下载的原始素材（用 tools/download_sources.py 重新获取）
+raw_sources/
+# Python
+__pycache__/
+*.pyc
+*.log
+# IDE
+.idea/
+.vscode/
+*.iml

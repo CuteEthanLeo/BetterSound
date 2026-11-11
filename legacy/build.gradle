@@ -1,0 +1,17 @@
+plugins {
+    id 'net.fabricmc.fabric-loom-remap' version '1.19.3'
+    id 'java'
+}
+apply from: '../shared.gradle'
+
+dependencies {
+    minecraft "com.mojang:minecraft:${bsMc}"
+    mappings "net.fabricmc:yarn:${bsYarn}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${bsFabricApi}"
+}
+
+tasks.register('dist', Copy) {
+    from remapJar
+    into '../dist'
+}

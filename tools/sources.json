@@ -1,0 +1,45 @@
+{
+  "_note": "All CC0. BigSoundBank license page (https://bigsoundbank.com/licenses.html) checked 2026-11-09: CC0 1.0 Universal, attribution appreciated but not required. Download BigSoundBank one at a time with a pause (Cloudflare rate limit).",
+  "bigsoundbank": {
+    "url": "https://bigsoundbank.com/UPLOAD/ogg/{id}.ogg",
+    "license": "CC0 1.0 - Joseph SARDIN, BigSoundBank.com",
+    "ids": {
+      "step_wood":   ["1515", "1516", "1517", "1518", "0376", "0165", "0373"],
+      "wood_creak":  ["3212", "3213", "3214", "3215", "0518"],
+      "step_stone":  ["0514", "1318", "1319", "0606", "0179"],
+      "step_grass":  ["1253", "1254", "0854", "0855"],
+      "step_gravel": ["0510", "1117", "3202", "3216"],
+      "step_mud":    ["0495", "1837"],
+      "step_snow":   ["3363", "0208", "2890"],
+      "leaves":      ["0137", "2889"],
+      "door_wood":   ["0015", "0377", "1702", "1703", "1704", "1705", "1706"],
+      "trapdoor_chest": ["0538", "0539", "0305", "0046", "1499", "1500"],
+      "door_iron":   ["0616"],
+      "impacts":     ["1841", "1842", "1835", "1836", "1839", "1840", "0536", "0705", "1022", "1305", "0148", "0771", "1643", "1771"],
+      "amb_birds":   ["2715", "2749", "0100", "1859"],
+      "amb_night":   ["1470", "1880", "0110"],
+      "owl":         ["0429", "0936"],
+      "amb_wind":    ["0595", "0904", "0146", "1714", "1715"],
+      "amb_cave":    ["2135", "2136", "1384", "1385", "1386", "1387"],
+      "amb_rain":    ["1290", "1289", "1293", "1019"],
+      "amb_river":   ["0823", "0864", "2754", "2755"],
+      "amb_ocean":   ["1046", "1047", "1446"]
+    }
+  },
+  "packs": [
+    {"name": "kenney_impact", "url": "https://github.com/Boyquotes/kenney-impact-sounds-for-godot/archive/refs/heads/main.zip", "license": "CC0 - Kenney; official source https://kenney.nl/assets/impact-sounds (downloaded via the Godot mirror below)"},
+    {"name": "kenney_rpg", "url": "https://opengameart.org/sites/default/files/RPGsounds_Kenney.zip", "license": "CC0 - Kenney (https://opengameart.org/content/50-rpg-sound-effects)"},
+    {"name": "kdd_steps", "url": "https://opengameart.org/sites/default/files/%5Bkdd%5DDifferentSteps_0.zip", "license": "CC0 - kdd (https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud)"},
+    {"name": "fantozzi_steps", "url": "https://opengameart.org/sites/default/files/Fantozzi-footsteps.7z", "license": "CC0 - Fantozzi (https://opengameart.org/content/fantozzis-footsteps-grasssand-stone)"},
+    {"name": "snow_gravel_steps", "url": "https://opengameart.org/sites/default/files/corsica_s-walking_in_snow.7z", "license": "CC0 - Corsica_S (https://opengameart.org/content/42-snow-and-gravel-footsteps)"},
+    {"name": "qubodup_doors", "url": "https://opengameart.org/sites/default/files/qubodup-DoorSet.7z", "license": "CC0 - qubodup (https://opengameart.org/content/door-open-door-close-set)"},
+    {"name": "wood_cracks", "url": "https://opengameart.org/sites/default/files/independent_nu_ljudbank-wood_crack_hit_destruction.7z", "license": "CC0 - independent.nu (https://opengameart.org/content/35-wooden-crackshitsdestructions)"},
+    {"name": "wood_metal_v2", "url": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip", "license": "CC0 (https://opengameart.org/content/wood-and-metal-sound-effects-volume-2)"},
+    {"name": "open_chest", "url": "https://opengameart.org/sites/default/files/open%20chest_0.wav", "license": "CC0 (https://opengameart.org/content/open-chest-sfx)"},
+    {"name": "leaf_rustle", "url": "https://opengameart.org/sites/default/files/qubodup-rustle.7z", "license": "CC0 - qubodup (https://opengameart.org/content/20-rustles-dry-leaves)"},
+    {"name": "metal_steps", "url": "https://opengameart.org/sites/default/files/metal_steps_48k24b.7z", "license": "CC0 (https://opengameart.org/content/metal-footsteps-on-concrete)"},
+    {"name": "metal_footstep_1", "url": "https://raw.githubusercontent.com/luanti-org/minetest_game/master/mods/default/sounds/default_metal_footstep.1.ogg", "license": "CC0 1.0 - mypantsfelldown (freesound), as credited in https://github.com/luanti-org/minetest_game/blob/master/mods/default/README.txt"},
+    {"name": "metal_footstep_2", "url": "https://raw.githubusercontent.com/luanti-org/minetest_game/master/mods/default/sounds/default_metal_footstep.2.ogg", "license": "CC0 1.0 - mypantsfelldown (freesound), as credited in https://github.com/luanti-org/minetest_game/blob/master/mods/default/README.txt"},
+    {"name": "metal_footstep_3", "url": "https://raw.githubusercontent.com/luanti-org/minetest_game/master/mods/default/sounds/default_metal_footstep.3.ogg", "license": "CC0 1.0 - mypantsfelldown (freesound), as credited in https://github.com/luanti-org/minetest_game/blob/master/mods/default/README.txt"}
+  ]
+}

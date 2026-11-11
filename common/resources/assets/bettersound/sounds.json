@@ -1,0 +1,183 @@
+{
+ "ambient.loop.forest_day": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/forest_day",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.plains_day": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/plains_day",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.night": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/night",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.wind": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/wind",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.rain": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/rain",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.rain_indoor": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/rain_indoor",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.cave": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/cave",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.stream": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/stream",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.loop.ocean": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/loop/ocean",
+    "stream": true
+   }
+  ]
+ },
+ "ambient.bird": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/bird/1",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/2",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/3",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/4",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/5",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/6",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/7",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/8",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/9",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/10",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/11",
+    "attenuation_distance": 32
+   },
+   {
+    "name": "bettersound:ambient/bird/12",
+    "attenuation_distance": 32
+   }
+  ],
+  "subtitle": "subtitles.bettersound.ambient.bird"
+ },
+ "ambient.owl": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/owl/1",
+    "attenuation_distance": 48
+   },
+   {
+    "name": "bettersound:ambient/owl/2",
+    "attenuation_distance": 48
+   },
+   {
+    "name": "bettersound:ambient/owl/3",
+    "attenuation_distance": 48
+   },
+   {
+    "name": "bettersound:ambient/owl/4",
+    "attenuation_distance": 48
+   }
+  ],
+  "subtitle": "subtitles.bettersound.ambient.owl"
+ },
+ "ambient.drip": {
+  "sounds": [
+   {
+    "name": "bettersound:ambient/drip/1"
+   },
+   {
+    "name": "bettersound:ambient/drip/2"
+   },
+   {
+    "name": "bettersound:ambient/drip/3"
+   },
+   {
+    "name": "bettersound:ambient/drip/4"
+   },
+   {
+    "name": "bettersound:ambient/drip/5"
+   },
+   {
+    "name": "bettersound:ambient/drip/6"
+   },
+   {
+    "name": "bettersound:ambient/drip/7"
+   },
+   {
+    "name": "bettersound:ambient/drip/8"
+   },
+   {
+    "name": "bettersound:ambient/drip/9"
+   },
+   {
+    "name": "bettersound:ambient/drip/10"
+   }
+  ],
+  "subtitle": "subtitles.bettersound.ambient.drip"
+ }
+}

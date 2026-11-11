@@ -1,0 +1,68 @@
+// Shared build logic for legacy (1.21.x, Yarn + remap) and modern (26.x, unobfuscated) builds.
+def root = file('..')
+def mc = project.findProperty('mc') ?: project.property('default_mc')
+def table = new Properties()
+file("${root}/versions.properties").withInputStream { table.load(it) }
+def row = table.getProperty(mc)
+if (row == null) throw new GradleException("Unknown Minecraft version '${mc}' (see versions.properties)")
+def (adapter, yarnVer, fapiVer, javaVer) = row.tokenize('|')
+ext.bsMc = mc
+ext.bsAdapter = adapter
+ext.bsYarn = yarnVer
+ext.bsFabricApi = fapiVer
+ext.bsJava = javaVer as int
+
+version = "${project.property('mod_version')}+mc${mc}"
+group = 'com.bettersound'
+base { archivesName = 'BetterSound' }
+
+// Each MC version gets its own build dir so builds don't clobber each other.
+layout.buildDirectory.set(file("build/${mc}"))
+
+repositories {
+    mavenCentral()
+    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ["${root}/common/java", "${root}/adapters/${adapter}/java"]
+        resources.srcDirs = ["${root}/common/resources", "${root}/adapters/${adapter}/resources"]
+    }
+    test {
+        java.srcDirs = ["${root}/common/test/java"]
+        resources.srcDirs = []
+    }
+}
+
+// Unit tests for the version-independent core (run by `build`).
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging { events 'failed'; exceptionFormat 'full' }
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(javaVer as int) }
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = javaVer as int
+}
+
+processResources {
+    def props = [version: project.version, mc: mc, java: javaVer]
+    inputs.properties(props)
+    filesMatching('fabric.mod.json') { expand(props) }
+}
+
+loom {
+    runs {
+        client { runDir = "../run/${mc}" }
+        remove server
+    }
+}
