@@ -52,6 +52,24 @@ def subtitle(event: str) -> str | None:
 
 
 @lru_cache(maxsize=None)
+def loudness_k(event: str) -> float | None:
+    """Mean loudest-100 ms K-weighted loudness (LUFS, including per-entry volume) of a vanilla event's files."""
+    e = sounds_json().get(event)
+    if not e:
+        return None
+    vals = []
+    for s in e["sounds"][:8]:
+        if isinstance(s, dict) and s.get("type") == "event":
+            continue
+        name, vol = (s, 1.0) if isinstance(s, str) else (s["name"], s.get("volume", 1.0))
+        p = _obj(f"minecraft/sounds/{name.split(':')[-1]}.ogg")
+        if p is None or not p.exists():
+            continue
+        vals.append(A.momentary_max(A.load(p)) + A.db(vol))
+    return sum(vals) / len(vals) if vals else None
+
+
+@lru_cache(maxsize=None)
 def loudness_db(event: str) -> float | None:
     """Mean active RMS (dBFS, including per-entry volume) of a vanilla event's files."""
     e = sounds_json().get(event)

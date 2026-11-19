@@ -154,4 +154,51 @@ class AmbientEngineTest {
         assertEquals(0f, eng.loopVolume(AmbientEngine.LOOP_FOREST), 1e-6);
         assertEquals(0f, eng.loopVolume(AmbientEngine.LOOP_WIND), 1e-6);
     }
+
+    @Test
+    void walkingPullsNoisyBedsBackAndStandingStillRestoresThem() {
+        AmbientEngine eng = new AmbientEngine();
+        FakeBackend b = new FakeBackend();
+        EnvSnapshot river = outdoors("river");
+        river.waterNearby = 1f;
+        for (int i = 0; i < 200; i++) { eng.movement(0, 0, true); eng.tick(river, b); }
+        float still = eng.loopVolume(AmbientEngine.LOOP_STREAM);
+        assertTrue(still > 0.5f, "stream audible while standing: " + still);
+        double x = 0;
+        for (int i = 0; i < 20; i++) { x += 0.2; eng.movement(x, 0, true); eng.tick(river, b); }   // walking
+        float walking = eng.loopVolume(AmbientEngine.LOOP_STREAM);
+        assertTrue(walking < still * 0.55f, "stream should dip under footsteps: " + walking + " vs " + still);
+        for (int i = 0; i < 200; i++) { eng.movement(x, 0, true); eng.tick(river, b); }            // stopped
+        assertEquals(still, eng.loopVolume(AmbientEngine.LOOP_STREAM), 0.01f);
+    }
+
+    @Test
+    void noFocusWhileFlyingOrAfterATeleport() {
+        AmbientEngine eng = new AmbientEngine();
+        double x = 0;
+        for (int i = 0; i < 40; i++) { x += 0.5; eng.movement(x, 0, false); }    // flying/riding: no steps
+        assertEquals(0f, eng.focus(), 1e-6);
+        eng.movement(5000, 0, true);                                             // teleport
+        eng.movement(5000, 0, true);
+        assertEquals(0f, eng.focus(), 1e-6);
+    }
+
+    @Test
+    void stackedLayersStayUnderTheBusCeiling() {
+        AmbientEngine eng = new AmbientEngine();
+        FakeBackend b = new FakeBackend();
+        EnvSnapshot e = outdoors("forest_beach");     // birds + wind + stream + ocean at once
+        e.waterNearby = 1f;
+        e.y = 63;
+        run(eng, e, b, 300);
+        double power = 0;
+        int layers = 0;
+        for (String id : AmbientEngine.ALL_LOOPS) {
+            float v = eng.loopVolume(id);
+            power += v * v;
+            if (v > 0.02f) layers++;
+        }
+        assertTrue(layers >= 3, "scenario should stack several layers: " + layers);
+        assertTrue(Math.sqrt(power) <= 0.9 + 1e-3, "bus " + Math.sqrt(power));
+    }
 }

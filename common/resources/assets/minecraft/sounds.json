@@ -6035,28 +6035,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.88,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -6065,36 +6101,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.924,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -6252,28 +6316,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.88,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.88,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.88,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -6282,36 +6382,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.924,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.924,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.924,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -6493,36 +6621,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.836,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 0.95
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.836,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.836,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.836,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.836,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.836,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -6531,36 +6687,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/1",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/2",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/3",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/4",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/5",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/6",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/7",
+    "pitch": 0.878,
+    "volume": 0.695
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 0.997
+    "name": "bettersound:step/gravel/8",
+    "pitch": 0.878,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/9",
+    "pitch": 0.878,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/10",
+    "pitch": 0.878,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/11",
+    "pitch": 0.878,
+    "volume": 0.695
+   },
+   {
+    "name": "bettersound:step/gravel/12",
+    "pitch": 0.878,
+    "volume": 0.695
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -6652,28 +6836,34 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/sand/1",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/sand/2",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/sand/3",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/sand/4",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/sand/5",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/6"
-   },
-   {
-    "name": "bettersound:dig/grass/7"
-   },
-   {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/sand/6",
+    "pitch": 0.88,
+    "volume": 0.269
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -6682,36 +6872,34 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/1",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/2",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/3",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/4",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/5",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/6",
+    "pitch": 0.924,
+    "volume": 0.269
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -6803,28 +6991,34 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/sand/1",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/sand/2",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/sand/3",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/sand/4",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/sand/5",
+    "pitch": 0.88,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/6"
-   },
-   {
-    "name": "bettersound:dig/grass/7"
-   },
-   {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/sand/6",
+    "pitch": 0.88,
+    "volume": 0.269
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -6833,36 +7027,34 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/1",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/2",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/3",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/4",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/5",
+    "pitch": 0.924,
+    "volume": 0.269
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/sand/6",
+    "pitch": 0.924,
+    "volume": 0.269
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -7020,28 +7212,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/snow/1",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/snow/2",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/snow/3",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/snow/4",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/snow/5",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:step/snow/6",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:step/snow/7",
+    "pitch": 0.88,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/snow/8",
+    "pitch": 0.88,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/9",
+    "pitch": 0.88,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/10",
+    "pitch": 0.88,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/11",
+    "pitch": 0.88,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/12",
+    "pitch": 0.88,
+    "volume": 0.794
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -7050,36 +7278,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/1",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/2",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/3",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/4",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/5",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/6",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/7",
+    "pitch": 0.924,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/snow/8",
+    "pitch": 0.924,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/9",
+    "pitch": 0.924,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/10",
+    "pitch": 0.924,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/11",
+    "pitch": 0.924,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/12",
+    "pitch": 0.924,
+    "volume": 0.794
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -7261,36 +7517,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/1",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/2",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/3",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/4",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/5",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/6",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/7",
+    "pitch": 0.968,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.1
+    "name": "bettersound:step/snow/8",
+    "pitch": 0.968,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/9",
+    "pitch": 0.968,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/10",
+    "pitch": 0.968,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/11",
+    "pitch": 0.968,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/12",
+    "pitch": 0.968,
+    "volume": 0.794
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -7299,36 +7583,64 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/1",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/2",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/3",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/4",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/5",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/6",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/7",
+    "pitch": 1.016,
+    "volume": 0.794
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.155
+    "name": "bettersound:step/snow/8",
+    "pitch": 1.016,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/9",
+    "pitch": 1.016,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/10",
+    "pitch": 1.016,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/11",
+    "pitch": 1.016,
+    "volume": 0.794
+   },
+   {
+    "name": "bettersound:step/snow/12",
+    "pitch": 1.016,
+    "volume": 0.794
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -7514,28 +7826,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.88
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -7544,36 +7864,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.924
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -7687,28 +8007,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.88
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.88
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -7717,36 +8045,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.924
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -7876,36 +8204,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.924
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.05
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.924
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -7914,36 +8242,36 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/1",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/2",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/2",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/3",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/3",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/4",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/4",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/5",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/5",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/6",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/7",
+    "pitch": 0.97
    },
    {
-    "name": "bettersound:dig/grass/8",
-    "pitch": 1.103
+    "name": "bettersound:step/mud/8",
+    "pitch": 0.97
    }
   ],
   "subtitle": "subtitles.block.generic.place"
@@ -8620,28 +8948,28 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1"
+    "name": "bettersound:dig/plant_break/1"
    },
    {
-    "name": "bettersound:dig/grass/2"
+    "name": "bettersound:dig/plant_break/2"
    },
    {
-    "name": "bettersound:dig/grass/3"
+    "name": "bettersound:dig/plant_break/3"
    },
    {
-    "name": "bettersound:dig/grass/4"
+    "name": "bettersound:dig/plant_break/4"
    },
    {
-    "name": "bettersound:dig/grass/5"
+    "name": "bettersound:dig/plant_break/5"
    },
    {
-    "name": "bettersound:dig/grass/6"
+    "name": "bettersound:dig/plant_break/6"
    },
    {
-    "name": "bettersound:dig/grass/7"
+    "name": "bettersound:dig/plant_break/7"
    },
    {
-    "name": "bettersound:dig/grass/8"
+    "name": "bettersound:dig/plant_break/8"
    }
   ],
   "subtitle": "subtitles.block.generic.break"
@@ -8650,35 +8978,27 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
+    "name": "bettersound:dig/plant_place/1",
     "pitch": 1.05
    },
    {
-    "name": "bettersound:dig/grass/2",
+    "name": "bettersound:dig/plant_place/2",
     "pitch": 1.05
    },
    {
-    "name": "bettersound:dig/grass/3",
+    "name": "bettersound:dig/plant_place/3",
     "pitch": 1.05
    },
    {
-    "name": "bettersound:dig/grass/4",
+    "name": "bettersound:dig/plant_place/4",
     "pitch": 1.05
    },
    {
-    "name": "bettersound:dig/grass/5",
+    "name": "bettersound:dig/plant_place/5",
     "pitch": 1.05
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.05
-   },
-   {
-    "name": "bettersound:dig/grass/8",
+    "name": "bettersound:dig/plant_place/6",
     "pitch": 1.05
    }
   ],
@@ -8809,35 +9129,35 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
+    "name": "bettersound:dig/plant_break/1",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/2",
+    "name": "bettersound:dig/plant_break/2",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/3",
+    "name": "bettersound:dig/plant_break/3",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/4",
+    "name": "bettersound:dig/plant_break/4",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/5",
+    "name": "bettersound:dig/plant_break/5",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/6",
+    "name": "bettersound:dig/plant_break/6",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/7",
+    "name": "bettersound:dig/plant_break/7",
     "pitch": 1.03
    },
    {
-    "name": "bettersound:dig/grass/8",
+    "name": "bettersound:dig/plant_break/8",
     "pitch": 1.03
    }
   ],
@@ -8847,35 +9167,27 @@
   "replace": true,
   "sounds": [
    {
-    "name": "bettersound:dig/grass/1",
+    "name": "bettersound:dig/plant_place/1",
     "pitch": 1.082
    },
    {
-    "name": "bettersound:dig/grass/2",
+    "name": "bettersound:dig/plant_place/2",
     "pitch": 1.082
    },
    {
-    "name": "bettersound:dig/grass/3",
+    "name": "bettersound:dig/plant_place/3",
     "pitch": 1.082
    },
    {
-    "name": "bettersound:dig/grass/4",
+    "name": "bettersound:dig/plant_place/4",
     "pitch": 1.082
    },
    {
-    "name": "bettersound:dig/grass/5",
+    "name": "bettersound:dig/plant_place/5",
     "pitch": 1.082
    },
    {
-    "name": "bettersound:dig/grass/6",
-    "pitch": 1.082
-   },
-   {
-    "name": "bettersound:dig/grass/7",
-    "pitch": 1.082
-   },
-   {
-    "name": "bettersound:dig/grass/8",
+    "name": "bettersound:dig/plant_place/6",
     "pitch": 1.082
    }
   ],
@@ -9330,9 +9642,6 @@
   "sounds": [
    {
     "name": "bettersound:container/chest_open/1"
-   },
-   {
-    "name": "bettersound:container/chest_open/2"
    }
   ],
   "subtitle": "subtitles.block.chest.open"

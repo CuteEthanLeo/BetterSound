@@ -169,6 +169,105 @@ def normalize_to(x: np.ndarray, target_rms_db: float, max_peak_db: float = -0.8)
     return (x * g).astype(np.float32)
 
 
+# ----------------------------------------------------------------------------------------------
+# Perceived loudness (ITU-R BS.1770 K-weighting). Plain RMS under-rates bright, transient sounds
+# (vanilla's grass step) and over-rates rumbly beds, so the mix is balanced on these instead.
+# ----------------------------------------------------------------------------------------------
+def _k_filters(sr: int = SR) -> list[tuple[list[float], list[float]]]:
+    # High shelf (head effect), coefficients derived for any sample rate as in libebur128.
+    G, f0, Q = 3.999843853973347, 1681.974450955533, 0.7071752369554196
+    K = math.tan(math.pi * f0 / sr)
+    Vh = 10.0 ** (G / 20.0)
+    Vb = Vh ** 0.4996667741545416
+    a0 = 1.0 + K / Q + K * K
+    shelf = ([(Vh + Vb * K / Q + K * K) / a0, 2.0 * (K * K - Vh) / a0, (Vh - Vb * K / Q + K * K) / a0],
+             [1.0, 2.0 * (K * K - 1.0) / a0, (1.0 - K / Q + K * K) / a0])
+    # RLB high-pass.
+    f0, Q = 38.13547087602444, 0.5003270373238773
+    K = math.tan(math.pi * f0 / sr)
+    a0 = 1.0 + K / Q + K * K
+    hp = ([1.0, -2.0, 1.0], [1.0, 2.0 * (K * K - 1.0) / a0, (1.0 - K / Q + K * K) / a0])
+    return [shelf, hp]
+
+
+def k_weight(x: np.ndarray, sr: int = SR) -> np.ndarray:
+    y = x if x.ndim == 1 else x.mean(axis=1)
+    for b, a in _k_filters(sr):
+        y = signal.lfilter(b, a, y)
+    return y
+
+
+def lufs(x: np.ndarray, sr: int = SR) -> float:
+    """Integrated (ungated) K-weighted loudness of a whole clip, for continuous beds."""
+    y = k_weight(x, sr)
+    return -0.691 + 10.0 * math.log10(float((y ** 2).mean()) + 1e-20)
+
+
+def momentary_max(x: np.ndarray, sr: int = SR, win_ms: float = 100.0) -> float:
+    """Loudest 100 ms K-weighted window, for short one-shots (footsteps, breaks)."""
+    y = k_weight(x, sr)
+    w = max(1, min(len(y), int(sr * win_ms / 1000)))
+    e = np.convolve(y ** 2, np.ones(w) / w, mode="valid")
+    return -0.691 + 10.0 * math.log10(float(e.max()) + 1e-20)
+
+
+def normalize_lufs(x: np.ndarray, target: float, max_peak_db: float = -3.0) -> np.ndarray:
+    g = undb(target - lufs(x))
+    peak = float(np.abs(x).max()) * g
+    if peak > undb(max_peak_db):
+        g *= undb(max_peak_db) / peak
+    return (x * g).astype(np.float32)
+
+
+def normalize_momentary(x: np.ndarray, target: float, max_peak_db: float = -0.8) -> np.ndarray:
+    g = undb(target - momentary_max(x))
+    peak = float(np.abs(x).max()) * g
+    if peak > undb(max_peak_db):
+        g *= undb(max_peak_db) / peak
+    return (x * g).astype(np.float32)
+
+
+def peaking(x: np.ndarray, fc: float, gain_db: float, q: float = 0.7, sr: int = SR) -> np.ndarray:
+    """RBJ peaking EQ (single pass). Used to carve a pocket for footsteps out of noisy ambience beds."""
+    A_ = 10.0 ** (gain_db / 40.0)
+    w0 = 2.0 * math.pi * fc / sr
+    alpha = math.sin(w0) / (2.0 * q)
+    b = [1.0 + alpha * A_, -2.0 * math.cos(w0), 1.0 - alpha * A_]
+    a = [1.0 + alpha / A_, -2.0 * math.cos(w0), 1.0 - alpha / A_]
+    b = [v / a[0] for v in b]
+    a = [v / a[0] for v in a]
+    return signal.lfilter(b, a, x, axis=0).astype(np.float32)
+
+
+def speed(x: np.ndarray, factor: float) -> np.ndarray:
+    """Tape-style speed change (factor < 1 = slower and lower)."""
+    up, down = 100, int(round(100 * factor))
+    return signal.resample_poly(x, up, down, axis=0).astype(np.float32)
+
+
+def loudest_window(x: np.ndarray, length_ms: float, sr: int = SR, lead: float = 0.3) -> np.ndarray:
+    """The length_ms window around the loudest moment (starting `lead` of the window before it)."""
+    L = int(sr * length_ms / 1000)
+    if len(x) <= L:
+        return x.copy()
+    env = envelope(x, sr, 5.0)
+    w = max(1, int(length_ms / 5 / 2))
+    sm = np.convolve(env, np.ones(w) / w, mode="same")
+    c = int(np.argmax(sm)) * int(sr * 0.005)
+    s = max(0, min(len(x) - L, c - int(L * lead)))
+    return x[s:s + L].copy()
+
+
+def mix(a: np.ndarray, b: np.ndarray, gain_b_db: float = 0.0, offset_ms: float = 0.0, sr: int = SR) -> np.ndarray:
+    """a + b (scaled, delayed by offset_ms), result as long as the longer of the two."""
+    o = int(sr * offset_ms / 1000)
+    n = max(len(a), o + len(b))
+    out = np.zeros(n, dtype=np.float32)
+    out[:len(a)] += a
+    out[o:o + len(b)] += b * undb(gain_b_db)
+    return out
+
+
 def make_loop(x: np.ndarray, length_s: float, xfade_s: float = 3.0, sr: int = SR, offset_s: float = 0.0) -> np.ndarray:
     """Seamless loop: take length_s (+ xfade) from offset, then equal-power crossfade the tail into the head."""
     L, F = int(length_s * sr), int(xfade_s * sr)

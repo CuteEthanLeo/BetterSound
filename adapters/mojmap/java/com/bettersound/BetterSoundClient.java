@@ -1,6 +1,7 @@
 package com.bettersound;
 
 import com.bettersound.core.AmbientEngine;
+import com.bettersound.core.ArmorSteps;
 import com.bettersound.core.BetterSoundCore;
 import com.bettersound.core.Biomes;
 import com.bettersound.core.BsConfig;
@@ -20,7 +21,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,6 +40,13 @@ import java.util.Map;
 /** Minecraft 26.x (official, unobfuscated names) adapter. */
 public class BetterSoundClient implements ClientModInitializer, SoundBackend {
     public static final AmbientEngine ENGINE = new AmbientEngine();
+    private static final SoundEvent LEATHER_STEP = event(ArmorSteps.LEATHER);
+    private static final SoundEvent HARD_STEP = event(ArmorSteps.HARD);
+    private static final Map<EquipmentSlot, TagKey<Item>> ARMOR_TAGS = Map.of(
+            EquipmentSlot.FEET, ItemTags.FOOT_ARMOR,
+            EquipmentSlot.LEGS, ItemTags.LEG_ARMOR,
+            EquipmentSlot.CHEST, ItemTags.CHEST_ARMOR,
+            EquipmentSlot.HEAD, ItemTags.HEAD_ARMOR);
     private final EnvSnapshot env = new EnvSnapshot();
     private final SneakSteps sneak = new SneakSteps();
     private final Map<String, LoopSound> loops = new HashMap<>();
@@ -55,6 +69,8 @@ public class BetterSoundClient implements ClientModInitializer, SoundBackend {
         }
         if (mc.isPaused()) return;
         if (tick++ % 10 == 0) sample(mc.level, mc.player);
+        LocalPlayer p = mc.player;
+        ENGINE.movement(p.getX(), p.getZ(), p.onGround() && !p.isPassenger() && !p.isInWater() && !p.getAbilities().flying);
         ENGINE.tick(env, this);
         sneakStep(mc, mc.level, mc.player);
     }
@@ -70,6 +86,28 @@ public class BetterSoundClient implements ClientModInitializer, SoundBackend {
         if (vol <= 0.001f) return;
         mc.getSoundManager().play(new SimpleSoundInstance(t.getStepSound(), SoundSource.PLAYERS, vol, t.getPitch(), random,
                 p.getX(), p.getY(), p.getZ()));
+        playArmorStep(p, true);
+    }
+
+    /** Play one armor layer for an actual local surface step. */
+    public static void playArmorStep(LocalPlayer player, boolean sneaking) {
+        float volume = ArmorSteps.volume(sneaking, player.isSprinting());
+        if (volume <= 0f || !player.isAlive() || player.isSpectator() || !player.onGround()
+                || player.isPassenger() || player.isInWater() || player.getAbilities().flying) return;
+
+        SoundEvent armorSound = null;
+        for (var armor : ARMOR_TAGS.entrySet()) {
+            ItemStack stack = player.getItemBySlot(armor.getKey());
+            if (!stack.is(armor.getValue())) continue;
+            if (stack.is(Items.LEATHER_BOOTS) || stack.is(Items.LEATHER_LEGGINGS)
+                    || stack.is(Items.LEATHER_CHESTPLATE) || stack.is(Items.LEATHER_HELMET)) {
+                armorSound = LEATHER_STEP;
+            } else {
+                armorSound = HARD_STEP;
+                break;
+            }
+        }
+        if (armorSound != null) player.playSound(armorSound, volume, 1f);
     }
 
     private void sample(ClientLevel w, LocalPlayer p) {

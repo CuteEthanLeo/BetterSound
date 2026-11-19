@@ -87,7 +87,8 @@ def hit_candidates(spec: HitSpec) -> list[tuple[float, np.ndarray]]:
     return cands
 
 
-def build_hits(name: str, spec: HitSpec, target_db: float) -> list[str]:
+def build_hits(name: str, spec: HitSpec, target_db: float, kmatch: bool = False) -> list[str]:
+    """kmatch: target_db is perceived loudness (loudest 100 ms, K-weighted LUFS) instead of active RMS."""
     cands = hit_candidates(spec)
     if not cands:
         print(f"  !! {name}: no source audio")
@@ -106,7 +107,7 @@ def build_hits(name: str, spec: HitSpec, target_db: float) -> list[str]:
             h = A.lowpass(h, spec.lp)
         h = A.high_shelf(h, 3000.0, spec.shelf_db)
         h = A.fade(h, 2.0, min(40.0, len(h) / A.SR * 1000 * 0.3))
-        h = A.normalize_to(h, target_db)
+        h = A.normalize_momentary(h, target_db) if kmatch else A.normalize_to(h, target_db)
         A.write_ogg(folder / f"{i}.ogg", h)
         out.append(f"bettersound:{name}/{i}")
     print(f"  {name}: {len(out)} variants (from {len(cands)} candidates)")
@@ -117,7 +118,11 @@ def build_hits(name: str, spec: HitSpec, target_db: float) -> list[str]:
 # Loops & one-shots
 # ----------------------------------------------------------------------------------------------
 def build_loop(name: str, sources: list[Path], length_s: float = 45.0, target_db: float = -24.0,
-               hp: float = 40.0, lp: float = 0.0, stereo: bool = True) -> str | None:
+               hp: float = 40.0, lp: float = 0.0, stereo: bool = True, lufs: float | None = None,
+               carve_db: float = 0.0) -> str | None:
+    """lufs: final integrated K-weighted loudness of the loop (beds are balanced on this, not on RMS).
+    carve_db: peaking cut around 3 kHz, the band where footstep crunch lives, so noisy beds (rain, water,
+    wind) sit behind the player's steps instead of masking them."""
     parts = []
     for f in sources:
         x = A.load(f, mono=not stereo)
@@ -135,7 +140,12 @@ def build_loop(name: str, sources: list[Path], length_s: float = 45.0, target_db
     x = A.concat_xfade(parts, 2.5) if len(parts) > 1 else parts[0]
     length = min(length_s * len(parts), len(x) / A.SR - 4.0, 150.0)
     loop = A.make_loop(x, length, xfade_s=3.0)
-    loop = A.normalize_to(loop, target_db, max_peak_db=-3.0)
+    if carve_db:
+        loop = A.peaking(loop, 3000.0, carve_db, q=0.6)
+    if lufs is not None:
+        loop = A.normalize_lufs(loop, lufs, max_peak_db=-3.0)
+    else:
+        loop = A.normalize_to(loop, target_db, max_peak_db=-3.0)
     A.write_ogg(OUT / "ambient" / "loop" / f"{name}.ogg", loop, quality=0.45)
     print(f"  loop {name}: {len(loop) / A.SR:.1f}s {'stereo' if loop.ndim == 2 else 'mono'}")
     return f"bettersound:ambient/loop/{name}"
@@ -169,10 +179,79 @@ def build_snippets(name: str, sources: list[Path], n: int, seg_s: float, target_
 
 
 # ----------------------------------------------------------------------------------------------
+# Foliage: layered real recordings (grass crunch + dry-leaf rustle)
+# ----------------------------------------------------------------------------------------------
+GRASS_CRUNCH = HitSpec(split=bsb("step_grass", "1253", "1254", "0854", "0855"), lp=11000, max_ms=450,
+                       rise_db=7.0, min_ms=120)
+
+
+def rustles(length_ms: float, hp: float) -> list[np.ndarray]:
+    """The busiest length_ms of each qubodup dry-leaf rustle, faded so it reads as one brush of foliage."""
+    out = []
+    for f in files("leaf_rustle/x/rustle/*.flac"):
+        x = A.loudest_window(A.highpass(A.load(f), hp), length_ms, lead=0.2)
+        out.append(A.fade(x, 4.0, length_ms * 0.55))
+        note_use(f)
+    return out
+
+
+def crunches() -> list[np.ndarray]:
+    cands = hit_candidates(GRASS_CRUNCH)
+    cands.sort(key=lambda c: -c[0])
+    return A.pick_variants([h for _, h in cands][:36], 12)
+
+
+def write_set(name: str, clips: list[np.ndarray], target_k: float, shelf_db: float = 0.0) -> list[str]:
+    folder = OUT / name
+    if folder.exists():
+        shutil.rmtree(folder)
+    out = []
+    for i, h in enumerate(clips, 1):
+        h = A.high_shelf(h, 3000.0, shelf_db)
+        h = A.fade(h, 2.0, min(60.0, len(h) / A.SR * 1000 * 0.3))
+        A.write_ogg(folder / f"{i}.ogg", A.normalize_momentary(h, target_k))
+        out.append(f"bettersound:{name}/{i}")
+    print(f"  {name}: {len(out)} layered variants")
+    return out
+
+
+def build_turf(target_k: float, n: int = 8) -> list[str]:
+    """Grass *block* break/place: a heavier, slowed grass crunch (roots and soil) under a leafy rustle."""
+    cr, ru = crunches(), rustles(380.0, 250.0)
+    if not cr or not ru:
+        return []
+    clips = []
+    for i in range(n):
+        body = A.speed(cr[i % len(cr)], 0.86)[: int(A.SR * 0.42)]
+        clips.append(A.mix(body, ru[(i * 7) % len(ru)], -5.0, 12.0))
+    return write_set("dig/grass", clips, target_k, shelf_db=1.5)
+
+
+def build_plant(target_break: float, target_place: float) -> tuple[list[str], list[str]]:
+    """Flowers, short/tall grass, ferns, saplings: a light stem snap + leaf swish instead of a turf crunch."""
+    cr, ru = crunches(), rustles(300.0, 450.0)
+    if not cr or not ru:
+        return [], []
+    brk = []
+    for i in range(8):
+        snap = A.fade(A.highpass(cr[(i * 5) % len(cr)], 2200.0)[: int(A.SR * 0.07)], 1.0, 35.0)
+        brk.append(A.mix(snap, ru[(i * 3 + 1) % len(ru)], -2.0, 8.0))
+    place = [A.highpass(ru[(i * 3 + 2) % len(ru)][: int(A.SR * 0.24)], 350.0) for i in range(6)]
+    return (write_set("dig/plant_break", brk, target_break, shelf_db=2.0),
+            write_set("dig/plant_place", place, target_place, shelf_db=1.0))
+
+
+# ----------------------------------------------------------------------------------------------
 # Recipe
 # ----------------------------------------------------------------------------------------------
 def vdb(event: str, default: float) -> float:
     v = V.loudness_db(event)
+    return v if v is not None else default
+
+
+def vk(event: str, default: float) -> float:
+    """Vanilla perceived loudness (loudest 100 ms, LUFS) of an event."""
+    v = V.loudness_k(event)
     return v if v is not None else default
 
 
@@ -203,44 +282,48 @@ def main() -> None:
         mc[event] = d
 
     print("Footsteps")
+    # Steps are matched to vanilla by perceived loudness (K-weighted, loudest 100 ms). Soft materials get a
+    # little extra: their real recordings are darker than vanilla's synthetic hiss, and they are what the
+    # player walks on most, under the ambience beds.
+    STEP_BONUS = {"grass": 3.0, "leaves": 3.0, "snow": 2.0, "sand": 1.0, "gravel": 1.0}
     step = {
         "wood": build_hits("step/wood", HitSpec(
             split=bsb("step_wood", "1515", "1516", "1517", "1518", "0376", "0165"),
-            whole=files(f"{KI}/footstep_wood_*.ogg", "kdd_steps/x/wood*.ogg"), n=12, hp=110, shelf_db=4.5, max_ms=520, min_ms=140), vdb("block.wood.step", -19.0)),
+            whole=files(f"{KI}/footstep_wood_*.ogg", "kdd_steps/x/wood*.ogg"), n=12, hp=110, shelf_db=4.5, max_ms=520, min_ms=140), vk("block.wood.step", -23.0) + STEP_BONUS.get("wood", 0.0), True),
         "stone": build_hits("step/stone", HitSpec(
             split=bsb("step_stone", "0514", "1318", "1319", "0606", "0179"),
             whole=files(f"{KI}/footstep_concrete_*.ogg", "fantozzi_steps/x/*/flac/*Stone*.flac"), n=12, shelf_db=3.5, max_ms=480, min_ms=140),
-            vdb("block.stone.step", -22.0)),
+            vk("block.stone.step", -26.0) + STEP_BONUS.get("stone", 0.0), True),
         "grass": build_hits("step/grass", HitSpec(
             split=bsb("step_grass", "1253", "1254", "0854", "0855"),
-            whole=files(f"{KI}/footstep_grass_*.ogg"), n=12, lp=9000, shelf_db=0.5, max_ms=600, rise_db=7.0, min_ms=140),
-            vdb("block.grass.step", -30.0) + 4.0),
+            whole=files(f"{KI}/footstep_grass_*.ogg"), n=12, lp=12000, shelf_db=2.0, max_ms=600, rise_db=7.0, min_ms=140),
+            vk("block.grass.step", -34.0) + STEP_BONUS.get("grass", 0.0), True),
         "gravel": build_hits("step/gravel", HitSpec(
             split=bsb("step_gravel", "0510", "1117", "3202", "3216"),
             whole=files("snow_gravel_steps/x/*/*gravel_0*.flac", "kdd_steps/x/gravel*.ogg"), n=12, shelf_db=2.0, max_ms=600, rise_db=7.0, min_ms=140),
-            vdb("block.gravel.step", -24.0)),
+            vk("block.gravel.step", -28.0) + STEP_BONUS.get("gravel", 0.0), True),
         "sand": build_hits("step/sand", HitSpec(
             whole=files("fantozzi_steps/x/*/flac/*Sand*.flac"), n=6, shelf_db=1.0, max_ms=600),
-            vdb("block.sand.step", -26.0)),
+            vk("block.sand.step", -30.0) + STEP_BONUS.get("sand", 0.0), True),
         "snow": build_hits("step/snow", HitSpec(
             split=bsb("step_snow", "3363", "0208", "2890"),
             whole=files(f"{KI}/footstep_snow_*.ogg"), n=12, shelf_db=1.5, max_ms=600, rise_db=7.0, min_ms=140),
-            vdb("block.snow.step", -27.0)),
+            vk("block.snow.step", -31.0) + STEP_BONUS.get("snow", 0.0), True),
         "wool": build_hits("step/wool", HitSpec(
             whole=files(f"{KI}/footstep_carpet_*.ogg"), n=5, shelf_db=0.0, max_ms=350),
-            vdb("block.wool.step", -19.0)),
+            vk("block.wool.step", -23.0) + STEP_BONUS.get("wool", 0.0), True),
         "mud": build_hits("step/mud", HitSpec(
             split=bsb("step_mud", "0495", "1837"), whole=files("kdd_steps/x/mud*.ogg"), n=8, shelf_db=0.0, max_ms=650, rise_db=7.0),
-            vdb("block.mud.step", -24.0)),
+            vk("block.mud.step", -28.0) + STEP_BONUS.get("mud", 0.0), True),
         "metal": build_hits("step/metal", HitSpec(
             whole=files("metal_steps/x/*.wav", "metal_footstep_*/*.ogg"), n=8, shelf_db=1.5, max_ms=500),
-            vdb("block.metal.step", -20.0)),
+            vk("block.metal.step", -24.0) + STEP_BONUS.get("metal", 0.0), True),
         "ladder": build_hits("step/ladder", HitSpec(
             split=bsb("wood_creak", "3212", "3213", "3214", "3215"), n=8, shelf_db=1.0, max_ms=600, rise_db=8.0),
-            vdb("block.ladder.step", -20.0)),
+            vk("block.ladder.step", -24.0) + STEP_BONUS.get("ladder", 0.0), True),
         "leaves": build_hits("step/leaves", HitSpec(
-            split=bsb("leaves", "0137", "2889"), whole=files("kdd_steps/x/leaves*.ogg"), n=8, shelf_db=1.0, max_ms=600, rise_db=7.0),
-            vdb("block.grass.step", -30.0) + 4.0),
+            split=bsb("leaves", "0137", "2889"), whole=files("kdd_steps/x/leaves*.ogg"), n=8, shelf_db=2.0, max_ms=600, rise_db=7.0),
+            vk("block.grass.step", -34.0) + STEP_BONUS.get("leaves", 0.0), True),
     }
 
     print("Place / break")
@@ -252,9 +335,8 @@ def main() -> None:
         "stone": build_hits("dig/stone", HitSpec(
             split=bsb("impacts", "1835", "1836", "1022"),
             whole=files(f"{KI}/impact_mining_*.ogg"), n=10, max_ms=550, shelf_db=2.0), vdb("block.stone.break", -16.0)),
-        "grass": build_hits("dig/grass", HitSpec(
-            split=bsb("impacts", "1839", "1840", "1305"), whole=files(f"{KI}/impact_soft_*.ogg"), n=8, max_ms=600, rise_db=7.0),
-            vdb("block.grass.break", -18.0)),
+        # Was a short generic "impact" tick (0.16 s, 5 dB under vanilla): now real turf being torn up.
+        "grass": build_turf(vk("block.grass.break", -17.0)),
         "glass": build_hits("dig/glass", HitSpec(
             split=bsb("impacts", "0148", "0771", "1643"), whole=files(f"{KI}/impact_glass_heavy_*.ogg"), n=8, max_ms=900, hp=150),
             vdb("block.glass.break", -14.0)),
@@ -262,6 +344,22 @@ def main() -> None:
             split=bsb("impacts", "1771"), whole=files(f"{KI}/impact_metal_heavy_*.ogg"), n=8, max_ms=700),
             vdb("block.metal.break", -16.0)),
     }
+
+    # Non-solid plants get their own, lighter set; the client routes block.grass.break/place to it when the
+    # block involved has no collision box (see PlantSounds / AbstractSoundInstanceMixin).
+    plant_break, plant_place = build_plant(vk("block.grass.break", -17.0) - 3.0, vk("block.grass.place", -17.0) - 6.0)
+
+    print("Armor footsteps")
+    armor_leather = build_hits("armor/leather", HitSpec(
+        whole=files("kenney_rpg/x/OGG/handleSmallLeather*.ogg", "kenney_rpg/x/OGG/clothBelt*.ogg"),
+        n=4, hp=150, lp=6000, max_ms=260, shelf_db=0.0), -29.0, True)
+    armor_hard = build_hits("armor/hard", HitSpec(
+        whole=files("kenney_rpg/x/OGG/metalLatch.ogg", "kenney_rpg/x/OGG/metalClick.ogg"),
+        n=2, hp=200, lp=6500, max_ms=220, shelf_db=0.0), -28.0, True)
+    for event, variants in (("armor.foley.leather", armor_leather), ("armor.foley.hard", armor_hard)):
+        if not variants:
+            raise SystemExit(f"Missing source audio for {event}")
+        bs[event] = {"sounds": entries(variants)}
 
     print("Doors / containers")
     door_open = build_hits("door/wood_open", HitSpec(
@@ -277,8 +375,10 @@ def main() -> None:
         whole=bsb("trapdoor_chest", "0539", "0046", "1500"), n=3, max_ms=800, hp=70),
         vdb("block.wooden_trapdoor.close", -16.0))
     chest_open = build_hits("container/chest_open", HitSpec(
-        whole=files("open_chest/*.wav") + bsb("trapdoor_chest", "0046"), n=2, max_ms=1300, hp=60),
+        whole=bsb("trapdoor_chest", "0046"), n=1, max_ms=1300, hp=60),
         vdb("block.chest.open", -12.0))
+    if not chest_open:
+        raise SystemExit("Missing mechanical chest opening recording (BigSoundBank 0046)")
     chest_close = build_hits("container/chest_close", HitSpec(
         whole=bsb("trapdoor_chest", "1500", "0539"), n=2, max_ms=900, hp=60), vdb("block.chest.close", -12.0))
     iron_door = build_hits("door/iron", HitSpec(whole=bsb("door_iron", "0616"), n=1, max_ms=1500, hp=60),
@@ -305,19 +405,29 @@ def main() -> None:
         "glass": [("glass", 1.0)],
         "leaves": [("azalea_leaves", 1.0), ("cherry_leaves", 1.03)],
     }
-    dig_for = {"wood": "wood", "ladder": "wood", "stone": "stone", "grass": "grass", "gravel": "grass", "sand": "grass",
-               "snow": "grass", "wool": None, "mud": "grass", "metal": "metal", "glass": "glass", "leaves": "grass"}
+    # "self": loose materials are dug with their own (heavier, lower) crunch instead of a shared grass sound.
+    dig_for = {"wood": "wood", "ladder": "wood", "stone": "stone", "grass": "grass", "gravel": "self", "sand": "self",
+               "snow": "self", "wool": None, "mud": "self", "metal": "metal", "glass": "glass", "leaves": "plant"}
     step_for = {"glass": "stone"}  # glass blocks: hard tile-like steps
     for fam, members in families.items():
         st = step.get(step_for.get(fam, fam), [])
-        dg = dig.get(dig_for[fam]) if dig_for[fam] else None
+        how = dig_for[fam]
+        if how == "self":
+            # level relative to the step files, so the break lands at vanilla's perceived loudness
+            rel = vk(f"block.{fam}.break", -20.0) - (vk(f"block.{fam}.step", -30.0) + STEP_BONUS.get(fam, 0.0))
+            dg, dg_place, dvol, dpitch = st, st, max(0.25, min(1.0, A.undb(rel))), 0.88
+        elif how == "plant":
+            dg, dg_place, dvol, dpitch = plant_break, plant_place, 1.0, 1.0
+        else:
+            dg = dig.get(how) if how else None
+            dg_place, dvol, dpitch = dg, 1.0, 1.0
         for group, pitch in members:
             override(f"block.{group}.step", st, pitch)
             override(f"block.{group}.hit", st, pitch, 0.8)
             override(f"block.{group}.fall", st, pitch * 0.92)
             if dg:
-                override(f"block.{group}.break", dg, pitch)
-                override(f"block.{group}.place", dg, pitch * 1.05)
+                override(f"block.{group}.break", dg, pitch * dpitch, dvol)
+                override(f"block.{group}.place", dg_place, pitch * dpitch * 1.05, dvol)
 
     for kind, (op, cl) in {"wooden_door": (door_open, door_close), "wooden_trapdoor": (trap_open, trap_close),
                            "fence_gate": (trap_open, trap_close)}.items():
@@ -341,20 +451,30 @@ def main() -> None:
 
     # ---------------- ambience (bettersound namespace) ----------------
     print("Ambience")
+    # Beds are balanced on perceived loudness. Before, they were levelled on RMS and ran 12-20 dB above the
+    # player's own footsteps in game (stream/ocean/night insects worst), burying the mod's main feature.
+    # Now each bed sits around -36 LUFS at full layer volume; tonal layers (birds, insects) keep their full
+    # spectrum, broadband noise layers get a pocket carved at ~3 kHz where footstep crunch lives.
     loops = {
-        "forest_day": build_loop("forest_day", bsb("amb_birds", "2715", "2749", "0100"), 50, -25.0),
-        "plains_day": build_loop("plains_day", bsb("amb_birds", "1859") + bsb("amb_wind", "0904"), 50, -28.0),
-        "night": build_loop("night", bsb("amb_night", "1470", "1880", "0110"), 50, -26.0),
-        "wind": build_loop("wind", bsb("amb_wind", "0595", "0146", "0904"), 50, -24.0, hp=30),
-        "rain": build_loop("rain", bsb("amb_rain", "1290", "1289"), 50, -23.0),
-        "rain_indoor": build_loop("rain_indoor", bsb("amb_rain", "1293", "1019"), 45, -26.0, lp=6000),
-        "cave": build_loop("cave", bsb("amb_cave", "2135", "2136"), 60, -27.0, hp=25),
-        "stream": build_loop("stream", bsb("amb_river", "0823", "0864", "2754", "2755"), 40, -25.0),
-        "ocean": build_loop("ocean", bsb("amb_ocean", "1046", "1047", "1446"), 50, -24.0, hp=30),
+        "forest_day": build_loop("forest_day", bsb("amb_birds", "2715", "2749", "0100"), 50, -25.0, lufs=-35.0),
+        "plains_day": build_loop("plains_day", bsb("amb_birds", "1859") + bsb("amb_wind", "0904"), 50, -28.0, lufs=-36.0),
+        "night": build_loop("night", bsb("amb_night", "1470", "1880", "0110"), 50, -26.0, lufs=-37.0),
+        "wind": build_loop("wind", bsb("amb_wind", "0595", "0146", "0904"), 50, -24.0, hp=30, lufs=-35.0, carve_db=-4.0),
+        "rain": build_loop("rain", bsb("amb_rain", "1290", "1289"), 50, -23.0, lufs=-35.0, carve_db=-4.0),
+        "rain_indoor": build_loop("rain_indoor", bsb("amb_rain", "1293", "1019"), 45, -26.0, lp=6000, lufs=-37.0, carve_db=-3.0),
+        "cave": build_loop("cave", bsb("amb_cave", "2135", "2136"), 60, -27.0, hp=25, lufs=-37.0),
+        "stream": build_loop("stream", bsb("amb_river", "0823", "0864", "2754", "2755"), 40, -25.0, lufs=-36.0, carve_db=-5.0),
+        "ocean": build_loop("ocean", bsb("amb_ocean", "1046", "1047", "1446"), 50, -24.0, hp=30, lufs=-35.0, carve_db=-5.0),
     }
     for name, ref in loops.items():
         if ref:
             bs[f"ambient.loop.{name}"] = {"sounds": [{"name": ref, "stream": True}]}
+    # Played in place of block.grass.break/place for plants; vanilla plays breaks at pitch x0.8, lift it back
+    # a little so petals and stems stay light.
+    for ev, names, pitch, sub in (("block.plant.break", plant_break, 1.15, V.subtitle("block.grass.break")),
+                                  ("block.plant.place", plant_place, 1.1, V.subtitle("block.grass.place"))):
+        if names:
+            bs[ev] = {"sounds": entries(names, pitch), **({"subtitle": sub} if sub else {})}
     birds = build_snippets("bird", bsb("amb_birds", "2715", "2749", "0100"), 12, 3.5, -22.0, hp=900)
     owls = build_snippets("owl", bsb("owl", "0429", "0936"), 4, 4.0, -22.0, hp=150)
     drips = build_hits("ambient/drip", HitSpec(split=bsb("amb_cave", "1384", "1385", "1386", "1387"), n=10,
@@ -363,8 +483,8 @@ def main() -> None:
     reach = {"ambient.bird": 32, "ambient.owl": 48}
     for ev, names in (("ambient.bird", birds), ("ambient.owl", owls), ("ambient.drip", drips)):
         if names:
-            entries = [{"name": n, **({"attenuation_distance": reach[ev]} if ev in reach else {})} for n in names]
-            bs[ev] = {"sounds": entries, "subtitle": f"subtitles.bettersound.{ev}"}
+            ents = [{"name": n, **({"attenuation_distance": reach[ev]} if ev in reach else {})} for n in names]
+            bs[ev] = {"sounds": ents, "subtitle": f"subtitles.bettersound.{ev}"}
 
     # ---------------- write ----------------
     (ASSETS / "minecraft").mkdir(parents=True, exist_ok=True)

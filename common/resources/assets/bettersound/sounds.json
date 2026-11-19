@@ -71,6 +71,72 @@
    }
   ]
  },
+ "block.plant.break": {
+  "sounds": [
+   {
+    "name": "bettersound:dig/plant_break/1",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/2",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/3",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/4",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/5",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/6",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/7",
+    "pitch": 1.15
+   },
+   {
+    "name": "bettersound:dig/plant_break/8",
+    "pitch": 1.15
+   }
+  ],
+  "subtitle": "subtitles.block.generic.break"
+ },
+ "block.plant.place": {
+  "sounds": [
+   {
+    "name": "bettersound:dig/plant_place/1",
+    "pitch": 1.1
+   },
+   {
+    "name": "bettersound:dig/plant_place/2",
+    "pitch": 1.1
+   },
+   {
+    "name": "bettersound:dig/plant_place/3",
+    "pitch": 1.1
+   },
+   {
+    "name": "bettersound:dig/plant_place/4",
+    "pitch": 1.1
+   },
+   {
+    "name": "bettersound:dig/plant_place/5",
+    "pitch": 1.1
+   },
+   {
+    "name": "bettersound:dig/plant_place/6",
+    "pitch": 1.1
+   }
+  ],
+  "subtitle": "subtitles.block.generic.place"
+ },
  "ambient.bird": {
   "sounds": [
    {
@@ -179,5 +245,31 @@
    }
   ],
   "subtitle": "subtitles.bettersound.ambient.drip"
+ },
+ "armor.foley.leather": {
+  "sounds": [
+   {
+    "name": "bettersound:armor/leather/1"
+   },
+   {
+    "name": "bettersound:armor/leather/2"
+   },
+   {
+    "name": "bettersound:armor/leather/3"
+   },
+   {
+    "name": "bettersound:armor/leather/4"
+   }
+  ]
+ },
+ "armor.foley.hard": {
+  "sounds": [
+   {
+    "name": "bettersound:armor/hard/1"
+   },
+   {
+    "name": "bettersound:armor/hard/2"
+   }
+  ]
  }
 }

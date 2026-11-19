@@ -27,6 +27,14 @@ public final class BsConfig {
     public float sprintStepVolume = 1.15f;
     /** Max random pitch deviation per footstep (0.04 = +-4%). */
     public float stepPitchJitter = 0.04f;
+    /** Loudness of your own footsteps (within 2 blocks of you) relative to vanilla's step level. */
+    public float ownStepVolume = 1.5f;
+    /** 0..1: how far the ambience beds step back while you walk so your footsteps come through (0 = off). */
+    public float footstepFocus = 1.0f;
+    /** Volume multiplier for the local player's armor footsteps (0 = off). */
+    public float armorStepVolume = 1.0f;
+    /** Flowers, grass, ferns, saplings etc. get a light stem-snap/leaf sound instead of the turf crunch. */
+    public boolean plantSounds = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static BsConfig instance = new BsConfig();
@@ -48,6 +56,9 @@ public final class BsConfig {
         cfg.sneakStepVolume = clamp(cfg.sneakStepVolume, 0f, 2f);
         cfg.sprintStepVolume = clamp(cfg.sprintStepVolume, 0f, 2f);
         cfg.stepPitchJitter = clamp(cfg.stepPitchJitter, 0f, 0.2f);
+        cfg.ownStepVolume = clamp(cfg.ownStepVolume, 0f, 3f);
+        cfg.footstepFocus = clamp(cfg.footstepFocus, 0f, 1f);
+        cfg.armorStepVolume = Float.isFinite(cfg.armorStepVolume) ? clamp(cfg.armorStepVolume, 0f, 2f) : 1f;
         instance = cfg;
         try {
             Files.createDirectories(path.getParent());

@@ -9,7 +9,7 @@ public final class StepDynamics {
     }
 
     /**
-     * Sprint loudness for steps right at the local player. (Sneaking is not handled here: vanilla emits no
+     * Presence and sprint loudness for steps right at the local player. (Sneaking is not handled here: vanilla emits no
      * footstep at all while sneaking, so BetterSound plays its own quiet ones, see {@link SneakSteps}.)
      *
      * @param distSq squared distance from the local player to the sound
@@ -17,8 +17,9 @@ public final class StepDynamics {
     public static float volume(float vol, double distSq, boolean sprinting) {
         BsConfig c = BsConfig.get();
         if (!c.footstepDynamics || distSq > 4.0) return vol;
-        if (sprinting) return vol * c.sprintStepVolume;
-        return vol;
+        float v = vol * c.ownStepVolume;
+        if (sprinting) v *= c.sprintStepVolume;
+        return v;
     }
 
     /** Stable per-instance jitter so a looping/tickable sound never wobbles. */

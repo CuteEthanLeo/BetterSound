@@ -35,7 +35,6 @@
     {"name": "qubodup_doors", "url": "https://opengameart.org/sites/default/files/qubodup-DoorSet.7z", "license": "CC0 - qubodup (https://opengameart.org/content/door-open-door-close-set)"},
     {"name": "wood_cracks", "url": "https://opengameart.org/sites/default/files/independent_nu_ljudbank-wood_crack_hit_destruction.7z", "license": "CC0 - independent.nu (https://opengameart.org/content/35-wooden-crackshitsdestructions)"},
     {"name": "wood_metal_v2", "url": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip", "license": "CC0 (https://opengameart.org/content/wood-and-metal-sound-effects-volume-2)"},
-    {"name": "open_chest", "url": "https://opengameart.org/sites/default/files/open%20chest_0.wav", "license": "CC0 (https://opengameart.org/content/open-chest-sfx)"},
     {"name": "leaf_rustle", "url": "https://opengameart.org/sites/default/files/qubodup-rustle.7z", "license": "CC0 - qubodup (https://opengameart.org/content/20-rustles-dry-leaves)"},
     {"name": "metal_steps", "url": "https://opengameart.org/sites/default/files/metal_steps_48k24b.7z", "license": "CC0 (https://opengameart.org/content/metal-footsteps-on-concrete)"},
     {"name": "metal_footstep_1", "url": "https://raw.githubusercontent.com/luanti-org/minetest_game/master/mods/default/sounds/default_metal_footstep.1.ogg", "license": "CC0 1.0 - mypantsfelldown (freesound), as credited in https://github.com/luanti-org/minetest_game/blob/master/mods/default/README.txt"},

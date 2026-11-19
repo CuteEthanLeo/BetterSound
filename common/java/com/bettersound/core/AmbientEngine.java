@@ -39,19 +39,65 @@ public final class AmbientEngine {
     /** After asking the backend to start a loop, wait this long before trying again (no per-tick retry spam). */
     private static final int RETRY_TICKS = 40;
 
+    /**
+     * Combined level of all beds (root of summed squared layer volumes; every loop file is mastered to about
+     * the same perceived loudness). Above this the whole bed is scaled down together, so dusk + rain + river +
+     * shore don't stack into a wall of noise.
+     */
+    private static final float BUS_CEILING = 0.9f;
+    /** Footstep focus envelope: fast attack (~0.5 s) when you start walking, slow release (~2.5 s) after. */
+    private static final float FOCUS_ATTACK = 0.25f, FOCUS_RELEASE = 0.05f;
+
     private static final class Layer {
         float current, target;
         int retry;
+        /** How far this layer dips while the player walks (0..1). Broadband noise masks steps most. */
+        final float duck;
+        Layer(float duck) { this.duck = duck; }
     }
 
     private final Map<String, Layer> layers = new LinkedHashMap<>();
     private final List<Map.Entry<String, Layer>> pending = new ArrayList<>();
     private final Random random = new Random();
     private int birdCooldown = 100, dripCooldown = 60, owlCooldown = 400;
+    private float focus;
+    private boolean hasLast;
+    private double lastX, lastZ;
 
     public AmbientEngine() {
-        for (String id : ALL_LOOPS) layers.put(id, new Layer());
+        layers.put(LOOP_FOREST, new Layer(0.35f));
+        layers.put(LOOP_PLAINS, new Layer(0.4f));
+        layers.put(LOOP_NIGHT, new Layer(0.45f));
+        layers.put(LOOP_WIND, new Layer(0.5f));
+        layers.put(LOOP_RAIN, new Layer(0.5f));
+        layers.put(LOOP_RAIN_INDOOR, new Layer(0.4f));
+        layers.put(LOOP_CAVE, new Layer(0.3f));
+        layers.put(LOOP_STREAM, new Layer(0.55f));
+        layers.put(LOOP_OCEAN, new Layer(0.55f));
     }
+
+    /**
+     * Called every client tick with the local player's position. While the player is walking on the ground the
+     * beds step back (like a film mix ducking the room tone under foley), so BetterSound's footsteps read
+     * clearly; standing still, the full ambience returns.
+     *
+     * @param grounded on the ground and able to make footsteps (not riding, flying or swimming)
+     */
+    public void movement(double x, double z, boolean grounded) {
+        float want = 0f;
+        if (hasLast && grounded) {
+            double dx = x - lastX, dz = z - lastZ, d2 = dx * dx + dz * dz;
+            if (d2 > 0.02 * 0.02 && d2 < 4.0) want = 1f;               // > 0.4 m/s, ignore teleports
+        }
+        hasLast = true;
+        lastX = x;
+        lastZ = z;
+        focus += (want - focus) * (want > focus ? FOCUS_ATTACK : FOCUS_RELEASE);
+        if (focus < 0.001f) focus = 0f;
+    }
+
+    /** 0..1 footstep focus (1 = walking). */
+    public float focus() { return focus; }
 
     /** Forget smoothed volumes and retry timers, e.g. when the player leaves the world. */
     public void reset() {
@@ -60,12 +106,15 @@ public final class AmbientEngine {
             l.target = 0f;
             l.retry = 0;
         }
+        focus = 0f;
+        hasLast = false;
     }
 
-    /** Current smoothed volume of a loop (0 if unknown). */
+    /** Current volume of a loop: smoothed environment level, dipped by footstep focus (0 if unknown). */
     public float loopVolume(String id) {
         Layer l = layers.get(id);
-        return l == null ? 0f : l.current;
+        if (l == null) return 0f;
+        return l.current * (1f - l.duck * focus * BsConfig.get().footstepFocus);
     }
 
     public void tick(EnvSnapshot env, SoundBackend backend) {
@@ -150,6 +199,13 @@ public final class AmbientEngine {
             float nearSea = clamp01(1f - (float) Math.abs(env.y - env.seaLevel) / 20f);
             boolean beachy = ocean || b.contains("beach") || b.contains("shore");
             set(LOOP_OCEAN, beachy ? 0.85f * nearSea * surface * master * muffle : 0f);
+        }
+        float power = 0f;
+        for (Layer l : layers.values()) power += l.target * l.target;
+        float bus = (float) Math.sqrt(power), ceiling = BUS_CEILING * Math.max(1f, master);
+        if (bus > ceiling) {
+            float g = ceiling / bus;
+            for (Layer l : layers.values()) l.target *= g;
         }
     }
 

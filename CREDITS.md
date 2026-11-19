@@ -45,13 +45,10 @@ License/source: CC0 1.0 - Joseph SARDIN, BigSoundBank.com - https://bigsoundbank
 - bigsoundbank/impacts/0705.ogg
 - bigsoundbank/impacts/0771.ogg
 - bigsoundbank/impacts/1022.ogg
-- bigsoundbank/impacts/1305.ogg
 - bigsoundbank/impacts/1643.ogg
 - bigsoundbank/impacts/1771.ogg
 - bigsoundbank/impacts/1835.ogg
 - bigsoundbank/impacts/1836.ogg
-- bigsoundbank/impacts/1839.ogg
-- bigsoundbank/impacts/1840.ogg
 - bigsoundbank/impacts/1841.ogg
 - bigsoundbank/impacts/1842.ogg
 - bigsoundbank/leaves/0137.ogg
@@ -168,16 +165,6 @@ License/source: CC0 - Kenney; official source https://kenney.nl/assets/impact-so
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_plank_medium_002.ogg
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_plank_medium_003.ogg
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_plank_medium_004.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_heavy_000.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_heavy_001.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_heavy_002.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_heavy_003.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_heavy_004.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_medium_000.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_medium_001.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_medium_002.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_medium_003.ogg
-- kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_soft_medium_004.ogg
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_wood_heavy_000.ogg
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_wood_heavy_001.ogg
 - kenney_impact/x/kenney-impact-sounds-for-godot-main/addons/kenney impact sounds/impact_wood_heavy_002.ogg
@@ -187,12 +174,42 @@ License/source: CC0 - Kenney; official source https://kenney.nl/assets/impact-so
 ## kenney_rpg
 License/source: CC0 - Kenney (https://opengameart.org/content/50-rpg-sound-effects) - https://opengameart.org/sites/default/files/RPGsounds_Kenney.zip
 
+- kenney_rpg/x/OGG/clothBelt.ogg
+- kenney_rpg/x/OGG/clothBelt2.ogg
 - kenney_rpg/x/OGG/doorClose_1.ogg
 - kenney_rpg/x/OGG/doorClose_2.ogg
 - kenney_rpg/x/OGG/doorClose_3.ogg
 - kenney_rpg/x/OGG/doorClose_4.ogg
 - kenney_rpg/x/OGG/doorOpen_1.ogg
 - kenney_rpg/x/OGG/doorOpen_2.ogg
+- kenney_rpg/x/OGG/handleSmallLeather.ogg
+- kenney_rpg/x/OGG/handleSmallLeather2.ogg
+- kenney_rpg/x/OGG/metalClick.ogg
+- kenney_rpg/x/OGG/metalLatch.ogg
+
+## leaf_rustle
+License/source: CC0 - qubodup (https://opengameart.org/content/20-rustles-dry-leaves) - https://opengameart.org/sites/default/files/qubodup-rustle.7z
+
+- leaf_rustle/x/rustle/rustle01.flac
+- leaf_rustle/x/rustle/rustle02.flac
+- leaf_rustle/x/rustle/rustle03.flac
+- leaf_rustle/x/rustle/rustle04.flac
+- leaf_rustle/x/rustle/rustle05.flac
+- leaf_rustle/x/rustle/rustle06.flac
+- leaf_rustle/x/rustle/rustle07.flac
+- leaf_rustle/x/rustle/rustle08.flac
+- leaf_rustle/x/rustle/rustle09.flac
+- leaf_rustle/x/rustle/rustle10.flac
+- leaf_rustle/x/rustle/rustle11.flac
+- leaf_rustle/x/rustle/rustle12.flac
+- leaf_rustle/x/rustle/rustle13.flac
+- leaf_rustle/x/rustle/rustle14.flac
+- leaf_rustle/x/rustle/rustle15.flac
+- leaf_rustle/x/rustle/rustle16.flac
+- leaf_rustle/x/rustle/rustle17.flac
+- leaf_rustle/x/rustle/rustle18.flac
+- leaf_rustle/x/rustle/rustle19.flac
+- leaf_rustle/x/rustle/rustle20.flac
 
 ## metal_footstep_1
 License/source: CC0 1.0 - mypantsfelldown (freesound), as credited in https://github.com/luanti-org/minetest_game/blob/master/mods/default/README.txt - https://raw.githubusercontent.com/luanti-org/minetest_game/master/mods/default/sounds/default_metal_footstep.1.ogg
@@ -237,11 +254,6 @@ License/source: CC0 (https://opengameart.org/content/metal-footsteps-on-concrete
 - metal_steps/x/metal_steps_23.wav
 - metal_steps/x/metal_steps_24.wav
 - metal_steps/x/metal_steps_25.wav
-
-## open_chest
-License/source: CC0 (https://opengameart.org/content/open-chest-sfx) - https://opengameart.org/sites/default/files/open%20chest_0.wav
-
-- open_chest/open_chest_0.wav
 
 ## snow_gravel_steps
 License/source: CC0 - Corsica_S (https://opengameart.org/content/42-snow-and-gravel-footsteps) - https://opengameart.org/sites/default/files/corsica_s-walking_in_snow.7z
